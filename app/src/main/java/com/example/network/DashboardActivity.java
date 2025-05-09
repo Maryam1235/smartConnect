@@ -22,6 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
 
+        ImageView sms = findViewById(R.id.imgCalender);
         ImageView wifi = findViewById(R.id.wifi);
         ImageView bluetooth = findViewById(R.id.imgNews); // This is your Bluetooth icon
 
@@ -53,6 +54,15 @@ public class DashboardActivity extends AppCompatActivity {
                         // startActivity(new Intent(getApplicationContext(), BluetoothActivity.class));
                     }
                 }
+            }
+        });
+
+        // Click for Sms
+        sms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, Communication.class);
+                startActivity(intent);
             }
         });
     }
