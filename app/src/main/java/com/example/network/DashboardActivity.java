@@ -30,7 +30,7 @@ public class DashboardActivity extends AppCompatActivity {
         wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go = new Intent(getApplicationContext(), MainActivity.class);
+                Intent go = new Intent(getApplicationContext(), NetworkActivity.class);
                 startActivity(go);
             }
         });
