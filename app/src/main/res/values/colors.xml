@@ -3,5 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_purple">#E4B1F0</color>
-
+    <color name="colorPrimary">#6200EE</color>
+    <color name="icon_tint">#2196F3</color>
 </resources>
