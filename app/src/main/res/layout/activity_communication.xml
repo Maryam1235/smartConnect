@@ -31,9 +31,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <!-- Show Notification -->
     <Button
         android:id="@+id/btnNotify"
         android:text="Show Notification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
+
+
 </LinearLayout>

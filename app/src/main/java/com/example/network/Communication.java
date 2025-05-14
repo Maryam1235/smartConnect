@@ -1,9 +1,9 @@
 package com.example.network;
-
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -13,20 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import android.content.pm.PackageManager;
-
 
 public class Communication extends AppCompatActivity {
 
     EditText etPhone, etMessage;
-    Button btnSendSMS, btnMakeCall, btnNotify;
+    Button btnSendSMS, btnMakeCall, btnNotify, btnViewHistory;
 
     private final int PERMISSION_REQUEST_CODE = 100;
+    private final String CHANNEL_ID = "communication_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +37,14 @@ public class Communication extends AppCompatActivity {
         btnSendSMS = findViewById(R.id.btnSendSMS);
         btnMakeCall = findViewById(R.id.btnMakeCall);
         btnNotify = findViewById(R.id.btnNotify);
+         // assume this exists in layout
 
-        requestPermissions(); // Ask user for runtime permissions
+        requestPermissions();
 
         btnSendSMS.setOnClickListener(view -> sendSMS());
         btnMakeCall.setOnClickListener(view -> makeCall());
         btnNotify.setOnClickListener(view -> showNotification());
+
     }
 
     private void requestPermissions() {
@@ -83,8 +84,6 @@ public class Communication extends AppCompatActivity {
     }
 
     private void showNotification() {
-        String CHANNEL_ID = "communication_channel";
-
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -93,12 +92,26 @@ public class Communication extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
+        String content = "Your phone storage is full!";
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Notification")
-                .setContentText("This is a test notification!")
+                .setContentText(content)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         manager.notify(1, builder.build());
+
+        saveNotificationToHistory(content);
+        Intent intent = new Intent(Communication.this, NotificationHistory.class);
+        startActivity(intent);
+    }
+
+    private void saveNotificationToHistory(String message) {
+        SharedPreferences prefs = getSharedPreferences("notifications", MODE_PRIVATE);
+        String oldHistory = prefs.getString("history", "");
+        String newHistory = message + "\n" + oldHistory;
+
+        prefs.edit().putString("history", newHistory).apply();
     }
 }
