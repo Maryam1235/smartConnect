@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Search EditText (no drawableEnd) -->
+    <EditText
+        android:id="@+id/searchEditText"
+        android:hint="Search location..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Search icon aligned to the end of EditText -->
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:src="@android:drawable/ic_menu_search"
+        android:contentDescription="Search"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignTop="@id/searchEditText"
+        android:layout_alignBottom="@id/searchEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="12dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Map view below -->
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
+        android:layout_below="@id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

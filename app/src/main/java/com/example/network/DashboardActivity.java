@@ -39,11 +39,17 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
+        ImageView location= findViewById(R.id.location);
         ImageView sms = findViewById(R.id.imgCalender);
+
         camera = findViewById(R.id.imgDonation);
         wifi = findViewById(R.id.wifi);
         bluetooth = findViewById(R.id.imgNews);
+
+
+        ImageView wifi = findViewById(R.id.wifi);
+        ImageView bluetooth = findViewById(R.id.imgNews); // This is your Bluetooth icon
+
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -83,10 +89,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+
         // Camera click
         camera.setOnClickListener(v -> {
             checkAndRequestPermissions();
             showImageOptionsDialog();
+        });
+
+        // Click for Location
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, LocateActivity.class);
+                startActivity(intent);
+            }
         });
 
         // SMS click
@@ -154,6 +170,9 @@ public class DashboardActivity extends AppCompatActivity {
                     Manifest.permission.READ_EXTERNAL_STORAGE
             }, REQUEST_PERMISSION_CODE);
         }
+
+
+
     }
 
     @Override
